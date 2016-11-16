@@ -35,12 +35,14 @@ export async function resolveFactories(config) {
   for (const [name, mwConfig] of Object.entries(config)) {
     if (mwConfig && mwConfig.module && mwConfig.module.factory &&
       typeof mwConfig.module.factory === 'function') {
+      const module = mwConfig.module;
       const finalValue = await Promise.resolve(
-        mwConfig.module.factory.apply(this, mwConfig.module.arguments)
+        module.factory.apply(this, mwConfig.module.arguments)
       );
       const mutated = Object.assign({}, mwConfig);
-      mutated.module = Object.assign({}, mutated.module, {
+      mutated.module = Object.assign({}, module, {
         factory() { return finalValue; },
+        name: module.name || module.factory.name,
       });
       transformed[name] = mutated;
     } else {
