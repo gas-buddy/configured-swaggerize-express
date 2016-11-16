@@ -33,16 +33,13 @@ property pointing to the directory implementing the handlers (or the handlers th
 export async function resolveFactories(config) {
   const transformed = {};
   for (const [name, mwConfig] of Object.entries(config)) {
-    if (mwConfig && mwConfig.module && mwConfig.module.factory &&
-      typeof mwConfig.module.factory === 'function') {
-      const module = mwConfig.module;
-      const finalValue = await Promise.resolve(
-        module.factory.apply(this, mwConfig.module.arguments)
-      );
+    if (mwConfig && mwConfig.module && mwConfig.module.factory === module.exports) {
+      const moduleArg = mwConfig.module;
+      const finalValue = await module.exports.default(...moduleArg.arguments);
       const mutated = Object.assign({}, mwConfig);
-      mutated.module = Object.assign({}, module, {
+      mutated.module = Object.assign({}, moduleArg, {
         factory() { return finalValue; },
-        name: module.name || module.factory.name,
+        name: moduleArg.name || moduleArg.factory.name,
       });
       transformed[name] = mutated;
     } else {

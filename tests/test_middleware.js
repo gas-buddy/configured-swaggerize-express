@@ -12,7 +12,7 @@ tap.test('setup express', async (t) => {
   const middlewareConfig = {
     authWare: {
       module: {
-        factory: configSwagger.default,
+        factory: configSwagger,
         arguments: [{
           spec: path.join(__dirname, 'sample.yaml'),
           handlers: path.join(__dirname, 'handlers'),
