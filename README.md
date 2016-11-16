@@ -11,7 +11,7 @@ that the factory function returns before passing to meddleware. For example:
   "meddleware": {
     "myService": {
       "module": {
-        "factory": "require:configured-swaggerize-express",
+        "factory": "require:@gasbuddy/configured-swaggerize-express",
         "arguments": [{
           "spec": "require:some-swagger-module"
         }]
