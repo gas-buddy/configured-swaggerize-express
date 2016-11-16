@@ -2,6 +2,8 @@ import assert from 'assert';
 import swaggerize from 'swaggerize-express';
 import jsonResolver from '@gasbuddy/swagger-ref-resolver';
 
+export const MARKER = Symbol('Module marker for configured-swaggerize-express');
+
 export default async function configureSwaggerize(options) {
   assert(options, `An argument must be passed to configured-swaggerize-express. Typically
 this is referenced in meddleware key 'arguments'. It must be a single element
@@ -33,7 +35,8 @@ property pointing to the directory implementing the handlers (or the handlers th
 export async function resolveFactories(config) {
   const transformed = {};
   for (const [name, mwConfig] of Object.entries(config)) {
-    if (mwConfig && mwConfig.module && mwConfig.module.factory === module.exports) {
+    if (mwConfig && mwConfig.module && mwConfig.module.factory
+      && mwConfig.module.factory.MARKER === MARKER) {
       const moduleArg = mwConfig.module;
       const finalValue = await module.exports.default(...moduleArg.arguments);
       const mutated = Object.assign({}, mwConfig);
