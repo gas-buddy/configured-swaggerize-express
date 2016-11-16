@@ -24,10 +24,28 @@ property pointing to the directory implementing the handlers (or the handlers th
     }
   }
 
-  return function swaggerizeSetup() {
-    return swaggerize({
-      api,
-      handlers: options.handlers,
-    });
-  };
+  return swaggerize({
+    api,
+    handlers: options.handlers,
+  });
+}
+
+export async function resolveFactories(config) {
+  const transformed = {};
+  for (const [name, mwConfig] of Object.entries(config)) {
+    if (mwConfig && mwConfig.module && mwConfig.module.factory &&
+      typeof mwConfig.module.factory === 'function') {
+      const finalValue = await Promise.resolve(
+        mwConfig.module.factory.apply(this, mwConfig.module.arguments)
+      );
+      const mutated = Object.assign({}, mwConfig);
+      mutated.module = Object.assign({}, mutated.module, {
+        factory() { return finalValue; },
+      });
+      transformed[name] = mutated;
+    } else {
+      transformed[name] = mwConfig;
+    }
+  }
+  return transformed;
 }

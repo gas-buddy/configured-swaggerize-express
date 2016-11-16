@@ -10,11 +10,10 @@ that the factory function returns before passing to meddleware. For example:
 {
   "meddleware": {
     "myService": {
-      "async": true,
       "module": {
         "factory": "require:configured-swaggerize-express",
         "arguments": [{
-          "spec":
+          "spec": "require:some-swagger-module"
         }]
       }
     }
@@ -24,10 +23,8 @@ that the factory function returns before passing to meddleware. For example:
 
 **server.js**
 ```
+import * as configSwagger from '@gasbuddy/configured-swaggerize-express';
+
 // Load confit first into a variable called config
-for (const middleware of Object.values(config.get('meddleware'))) {
-  if (middleware.async) {
-    middleware.module.factory = await middleware.module.factory(middleware.module.arguments);
-  }
-}
+app.use(meddleware(await configSwagger.resolveFactories(config.get('middleware')));
 ```
