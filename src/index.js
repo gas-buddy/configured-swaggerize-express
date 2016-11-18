@@ -15,7 +15,7 @@ property pointing to the directory implementing the handlers (or the handlers th
 
   // We return a promise that, when resolved, will return a factory method that will
   // make the actual middleware
-  const api = await jsonResolver(options.spec);
+  const api = await jsonResolver(options.spec, options.basePath);
 
   // Attach any dynamic security handlers
   if (api.securityDefinitions) {
