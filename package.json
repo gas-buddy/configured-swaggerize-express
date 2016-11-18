@@ -1,6 +1,6 @@
 {
   "name": "@gasbuddy/configured-swaggerize-express",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "A configuration driven swaggerize-express middleware",
   "main": "build/index.js",
   "scripts": {
