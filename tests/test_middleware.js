@@ -2,7 +2,7 @@ import tap from 'tap';
 import path from 'path';
 import express from 'express';
 import request from 'supertest';
-import meddleware from 'meddleware';
+import meddleware from '@gasbuddy/meddleware';
 import * as configSwagger from '../src/index';
 
 let app;
@@ -12,7 +12,7 @@ tap.test('setup express', async (t) => {
   const middlewareConfig = {
     authWare: {
       module: {
-        factory: configSwagger,
+        factory: configSwagger.default,
         arguments: [{
           spec: path.join(__dirname, 'sample.yaml'),
           handlers: path.join(__dirname, 'handlers'),
@@ -31,10 +31,7 @@ tap.test('setup express', async (t) => {
       },
     },
   };
-  const before = middlewareConfig.authWare.module.factory;
-  const transformed = await configSwagger.resolveFactories(middlewareConfig);
-  t.ok(before !== transformed.authWare.module.factory, 'Should have resolved');
-  app.use(meddleware(transformed));
+  app.use(await meddleware(middlewareConfig));
   // Swallow errors
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {

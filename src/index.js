@@ -31,23 +31,3 @@ property pointing to the directory implementing the handlers (or the handlers th
     handlers: options.handlers,
   });
 }
-
-export async function resolveFactories(config) {
-  const transformed = {};
-  for (const [name, mwConfig] of Object.entries(config)) {
-    if (mwConfig && mwConfig.module && mwConfig.module.factory
-      && mwConfig.module.factory.MARKER === MARKER) {
-      const moduleArg = mwConfig.module;
-      const finalValue = await module.exports.default(...moduleArg.arguments);
-      const mutated = Object.assign({}, mwConfig);
-      mutated.module = Object.assign({}, moduleArg, {
-        factory() { return finalValue; },
-        name: moduleArg.name || moduleArg.factory.name,
-      });
-      transformed[name] = mutated;
-    } else {
-      transformed[name] = mwConfig;
-    }
-  }
-  return transformed;
-}
