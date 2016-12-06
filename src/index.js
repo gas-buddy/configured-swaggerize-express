@@ -1,4 +1,5 @@
 import assert from 'assert';
+import express from 'express';
 import swaggerize from 'swaggerize-express';
 import jsonResolver from '@gasbuddy/swagger-ref-resolver';
 
@@ -26,8 +27,20 @@ property pointing to the directory implementing the handlers (or the handlers th
     }
   }
 
-  return swaggerize({
+  const swag = swaggerize({
     api,
     handlers: options.handlers,
   });
+
+  // If you want to host multiple swagger documents, you'll
+  // need to set returnApp true to cause it to mount a full
+  // express app rather than just swaggerizing the main app,
+  // because swaggerize-express assigns a read-only property
+  // to the app
+  if (options.returnApp) {
+    const app = express();
+    app.use(swag);
+    return app;
+  }
+  return swag;
 }

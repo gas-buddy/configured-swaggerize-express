@@ -1,12 +1,12 @@
 {
   "name": "@gasbuddy/configured-swaggerize-express",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A configuration driven swaggerize-express middleware",
   "main": "build/index.js",
   "scripts": {
     "test": "tap --node-arg=-r --node-arg=babel-register tests/*.js",
     "test-some": "tap --node-arg=-r --node-arg=babel-register",
-    "cover": "nyc --reporter=lcov npm test",
+    "cover": "cross-env BABEL_ENV=test nyc tap tests/test_*.js",
     "lint": "eslint .",
     "build": "babel src --out-dir build",
     "prepublish": "npm run build"
@@ -22,19 +22,37 @@
   "author": "GasBuddy",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@gasbuddy/meddleware": "^1",
     "babel-cli": "^6.4.5",
     "babel-preset-gasbuddy": "^1",
     "bluebird": "^3.2.1",
     "confit": "^2.1.0",
+    "cross-env": "^3.1.3",
     "eslint": "^3.1.0",
     "eslint-config-gasbuddy": "^1",
-    "express": "^4.14.0",
-    "@gasbuddy/meddleware": "^1",
     "supertest": "^2.0.1",
-    "tap": "^8.0.0"
+    "tap": "^7.0.0"
   },
   "dependencies": {
     "@gasbuddy/swagger-ref-resolver": "^1.1.0",
+    "express": "^4.14.0",
     "swaggerize-express": "^4.0.5"
+  },
+  "nyc": {
+    "lines": 80,
+    "statements": 80,
+    "functions": 95,
+    "branches": 75,
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "include": [
+      "src"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false
   }
 }

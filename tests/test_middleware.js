@@ -30,6 +30,17 @@ tap.test('setup express', async (t) => {
         }],
       },
     },
+    authWare2: {
+      path: '/v99',
+      module: {
+        factory: configSwagger.default,
+        arguments: [{
+          returnApp: true,
+          spec: path.join(__dirname, 'sample.yaml'),
+          handlers: path.join(__dirname, 'handlers'),
+        }],
+      },
+    },
   };
   app.use(await meddleware(middlewareConfig));
   // Swallow errors
@@ -39,7 +50,7 @@ tap.test('setup express', async (t) => {
   });
 
   // eslint-disable-next-line no-underscore-dangle
-  t.strictEquals(app._router.stack.length, 5, 'Should have added swagger handlers');
+  t.strictEquals(app._router.stack.length, 6, 'Should have added swagger handlers');
 });
 
 tap.test('call handler with no auth', (t) => {
