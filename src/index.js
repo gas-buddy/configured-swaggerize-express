@@ -5,6 +5,14 @@ import jsonResolver from '@gasbuddy/swagger-ref-resolver';
 
 export const MARKER = Symbol('Module marker for configured-swaggerize-express');
 
+function safeCopy(swaggerizeOptions, api) {
+  // swaggerize-express sets the basePath on the api object, but
+  // we don't want that because we reuse that api object.
+  return Object.assign({}, swaggerizeOptions, {
+    api: Object.assign({}, api),
+  });
+}
+
 export default async function configureSwaggerize(options) {
   assert(options, `An argument must be passed to configured-swaggerize-express. Typically
 this is referenced in meddleware key 'arguments'. It must be a single element
@@ -27,20 +35,27 @@ property pointing to the directory implementing the handlers (or the handlers th
     }
   }
 
-  const swag = swaggerize({
-    api,
+  const swaggerizeOptions = {
     handlers: options.handlers,
-  });
+  };
+  const original = swaggerize(safeCopy(swaggerizeOptions, api));
 
   // If you want to host multiple swagger documents, you'll
   // need to set returnApp true to cause it to mount a full
   // express app rather than just swaggerizing the main app,
   // because swaggerize-express assigns a read-only property
   // to the app
-  if (options.returnApp) {
+  if (options.returnApp || Array.isArray(options.alternateBasePaths)) {
+    const apps = [express().use(original)];
+    if (Array.isArray(options.alternateBasePaths)) {
+      for (const altPath of options.alternateBasePaths) {
+        apps.push(express().use(altPath, swaggerize(safeCopy(swaggerizeOptions, api))));
+      }
+    }
     const app = express();
-    app.use(swag);
+    app.use(...apps);
     return app;
   }
-  return swag;
+
+  return original;
 }

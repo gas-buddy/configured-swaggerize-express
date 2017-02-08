@@ -6,7 +6,9 @@
   "scripts": {
     "test": "tap --node-arg=-r --node-arg=babel-register tests/*.js",
     "test-some": "tap --node-arg=-r --node-arg=babel-register",
-    "cover": "cross-env BABEL_ENV=test nyc tap tests/test_*.js",
+    "cover": "cross-env BABEL_ENV=test nyc tap tests/test_*.js && nyc check-coverage",
+    "ci-test": "cross-env NODE_ENV=test nyc tap -Rtap tests/test_*.js | tee .tap_output | tap -Rspec -",
+    "ci-cover": "nyc check-coverage",
     "lint": "eslint .",
     "build": "babel src --out-dir build",
     "prepublish": "npm run build"
@@ -30,8 +32,8 @@
     "cross-env": "^3.1.3",
     "eslint": "^3.1.0",
     "eslint-config-gasbuddy": "^1",
-    "supertest": "^2.0.1",
-    "tap": "^7.0.0"
+    "supertest": "^3",
+    "tap": "^10"
   },
   "dependencies": {
     "@gasbuddy/swagger-ref-resolver": "^1.1.0",
@@ -53,6 +55,7 @@
     "require": [
       "babel-register"
     ],
-    "sourceMap": false
+    "sourceMap": false,
+    "instrument": false
   }
 }

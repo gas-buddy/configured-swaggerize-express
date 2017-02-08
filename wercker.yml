@@ -10,7 +10,9 @@ build:
 
     - script:
       name: test with coverage
-      code: npm run cover
+      code: |
+        npm run --silent ci-test
+        npm run --silent ci-cover
 
     - script:
       name: build
