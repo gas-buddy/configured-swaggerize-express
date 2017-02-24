@@ -1,5 +1,7 @@
 configured-swaggerize-express
 =============================
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/gas-buddy/configured-swaggerize-express.svg)](https://greenkeeper.io/)
 A small wrapper around swaggerize-express to allow runtime security
 handling and config-based instantiation. Please note that if you
 instantiate the module in configuration, you must resolve the promise
