@@ -13,7 +13,8 @@ tap.test('setup express', async (t) => {
     authWare: {
       module: {
         factory: configSwagger.default,
-        arguments: [{
+        // eslint-disable-next-line quote-props
+        'arguments': [{
           spec: path.join(__dirname, 'sample.yaml'),
           handlers: path.join(__dirname, 'handlers'),
           security: {
@@ -34,7 +35,8 @@ tap.test('setup express', async (t) => {
       path: '/v99',
       module: {
         factory: configSwagger.default,
-        arguments: [{
+        // eslint-disable-next-line quote-props
+        'arguments': [{
           returnApp: true,
           spec: path.join(__dirname, 'sample.yaml'),
           handlers: path.join(__dirname, 'handlers'),
