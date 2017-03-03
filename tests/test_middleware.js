@@ -7,43 +7,44 @@ import * as configSwagger from '../src/index';
 
 let app;
 
+const middlewareConfig = {
+  authWare: {
+    module: {
+      factory: configSwagger.default,
+      // eslint-disable-next-line quote-props
+      arguments: [{
+        spec: path.join(__dirname, 'sample.yaml'),
+        handlers: path.join(__dirname, 'handlers'),
+        security: {
+          fake_auth(req, res, next) {
+            if (req.headers.authorization) {
+              next();
+            } else {
+              const e = new Error('Authorization Failed');
+              e.status = 401;
+              next(e);
+            }
+          },
+        },
+      }],
+    },
+  },
+  authWare2: {
+    path: '/v99',
+    module: {
+      factory: configSwagger.default,
+      // eslint-disable-next-line quote-props
+      arguments: [{
+        returnApp: true,
+        spec: path.join(__dirname, 'sample.yaml'),
+        handlers: path.join(__dirname, 'handlers'),
+      }],
+    },
+  },
+};
+
 tap.test('setup express', async (t) => {
   app = express();
-  const middlewareConfig = {
-    authWare: {
-      module: {
-        factory: configSwagger.default,
-        // eslint-disable-next-line quote-props
-        'arguments': [{
-          spec: path.join(__dirname, 'sample.yaml'),
-          handlers: path.join(__dirname, 'handlers'),
-          security: {
-            fake_auth(req, res, next) {
-              if (req.headers.authorization) {
-                next();
-              } else {
-                const e = new Error('Authorization Failed');
-                e.status = 401;
-                next(e);
-              }
-            },
-          },
-        }],
-      },
-    },
-    authWare2: {
-      path: '/v99',
-      module: {
-        factory: configSwagger.default,
-        // eslint-disable-next-line quote-props
-        'arguments': [{
-          returnApp: true,
-          spec: path.join(__dirname, 'sample.yaml'),
-          handlers: path.join(__dirname, 'handlers'),
-        }],
-      },
-    },
-  };
   app.use(await meddleware(middlewareConfig));
   // Swallow errors
   // eslint-disable-next-line no-unused-vars
