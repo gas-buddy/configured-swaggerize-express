@@ -53,7 +53,7 @@ tap.test('setup express', async (t) => {
   });
 
   // eslint-disable-next-line no-underscore-dangle
-  t.strictEquals(app._router.stack.length, 6, 'Should have added swagger handlers');
+  t.strictEquals(app._router.stack.length, 7, 'Should have added swagger handlers');
 });
 
 tap.test('call handler with no auth', (t) => {

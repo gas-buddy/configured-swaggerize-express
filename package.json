@@ -1,6 +1,6 @@
 {
   "name": "@gasbuddy/configured-swaggerize-express",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A configuration driven swaggerize-express middleware",
   "main": "build/index.js",
   "scripts": {
@@ -38,7 +38,7 @@
   "dependencies": {
     "@gasbuddy/swagger-ref-resolver": "^4.0.0",
     "express": "^4.16.2",
-    "swaggerize-express": "^4.0.5"
+    "@gasbuddy/swaggerize-express": "^4.0.6"
   },
   "nyc": {
     "lines": 80,

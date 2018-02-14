@@ -1,6 +1,6 @@
 import assert from 'assert';
 import express from 'express';
-import swaggerize from 'swaggerize-express';
+import swaggerize from '@gasbuddy/swaggerize-express';
 import jsonResolver from '@gasbuddy/swagger-ref-resolver';
 
 export const MARKER = Symbol('Module marker for configured-swaggerize-express');
