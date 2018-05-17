@@ -33,7 +33,7 @@
     "cross-env": "^5.1.3",
     "eslint-config-gasbuddy": "^4.1.0",
     "supertest": "^3",
-    "tap": "^11.0.1"
+    "tap": "^12.0.0"
   },
   "dependencies": {
     "@gasbuddy/swagger-ref-resolver": "^4.0.0",
