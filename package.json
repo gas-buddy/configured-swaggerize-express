@@ -24,7 +24,7 @@
   "author": "GasBuddy",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@gasbuddy/meddleware": "^1",
+    "@gasbuddy/meddleware": "^2.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-gasbuddy": "^3.1.0",
     "babel-register": "^6.26.0",
