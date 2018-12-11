@@ -27,7 +27,7 @@
     "@babel/cli": "^7.1.2",
     "@babel/register": "^7.0.0",
     "@gasbuddy/meddleware": "^2.0.0",
-    "babel-preset-gasbuddy": "^4.1.0",
+    "babel-preset-gasbuddy": "^5.0.0",
     "bluebird": "^3.5.2",
     "confit": "^2.3.0",
     "cross-env": "^5.2.0",
