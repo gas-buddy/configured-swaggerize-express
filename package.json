@@ -29,7 +29,7 @@
     "@gasbuddy/meddleware": "^2.0.0",
     "babel-preset-gasbuddy": "^4.2.0",
     "bluebird": "^3.5.3",
-    "confit": "^2.3.0",
+    "confit": "^3.0.0",
     "cross-env": "^5.2.0",
     "eslint-config-gasbuddy": "^5.0.3",
     "supertest": "^3.3.0",
