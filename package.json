@@ -1,6 +1,6 @@
 {
   "name": "@gasbuddy/configured-swaggerize-express",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A configuration driven swaggerize-express middleware",
   "main": "build/index.js",
   "scripts": {
@@ -24,21 +24,21 @@
   "author": "GasBuddy",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@babel/cli": "^7.2.0",
-    "@babel/register": "^7.0.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/register": "^7.8.6",
     "@gasbuddy/meddleware": "^2.0.0",
-    "babel-preset-gasbuddy": "^4.2.0",
-    "bluebird": "^3.5.3",
+    "babel-preset-gasbuddy": "^5.7.0",
+    "bluebird": "^3.7.2",
     "confit": "^2.3.0",
-    "cross-env": "^5.2.0",
-    "eslint-config-gasbuddy": "^5.0.3",
-    "supertest": "^3.3.0",
-    "tap": "^12.1.1"
+    "cross-env": "^7.0.2",
+    "eslint-config-gasbuddy": "^5.3.0",
+    "supertest": "^4.0.2",
+    "tap": "^14.10.6"
   },
   "dependencies": {
     "@gasbuddy/swagger-ref-resolver": "^5.0.0",
     "@gasbuddy/swaggerize-express": "^4.0.6",
-    "express": "^4.16.4"
+    "express": "^4.17.1"
   },
   "nyc": {
     "lines": 80,
