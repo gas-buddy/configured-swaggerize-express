@@ -1,7 +1,7 @@
 import assert from 'assert';
 import express from 'express';
 import swaggerize from '@gasbuddy/swaggerize-express';
-import jsonResolver from '@gasbuddy/swagger-ref-resolver';
+import jsonResolver, { resolveAllParameters } from '@gasbuddy/swagger-ref-resolver';
 
 export const MARKER = Symbol('Module marker for configured-swaggerize-express');
 
@@ -24,7 +24,10 @@ property pointing to the directory implementing the handlers (or the handlers th
 
   // We return a promise that, when resolved, will return a factory method that will
   // make the actual middleware
-  const api = await jsonResolver(options.spec, options.basedir);
+  let api = await jsonResolver(options.spec, options.basedir);
+  if (options.resolveParameters) {
+    api = resolveAllParameters(api);
+  }
 
   // Attach any dynamic security handlers
   if (api.securityDefinitions) {
