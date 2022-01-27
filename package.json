@@ -11,7 +11,8 @@
     "ci-cover": "nyc check-coverage",
     "lint": "eslint .",
     "build": "babel src --out-dir build",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "confit": "^3.0.0",
     "cross-env": "^7.0.2",
     "eslint-config-gasbuddy": "^5.3.0",
+    "patch-package": "^6.4.7",
     "supertest": "^4.0.2",
     "tap": "^14.10.7"
   },

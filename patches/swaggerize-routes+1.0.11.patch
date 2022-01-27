@@ -1,0 +1,17 @@
+diff --git a/node_modules/swaggerize-routes/lib/readhandlers.js b/node_modules/swaggerize-routes/lib/readhandlers.js
+index a403fe4..85b4abb 100644
+--- a/node_modules/swaggerize-routes/lib/readhandlers.js
++++ b/node_modules/swaggerize-routes/lib/readhandlers.js
+@@ -23,10 +23,10 @@ function read(dir) {
+ 
+             abspath = path.join(dir, name);
+             stat = fs.statSync(abspath);
+-            key = name.replace(/\.js/, '');
++            key = name.replace(/\.(js|ts)/, '');
+ 
+             if (stat.isFile()) {
+-                if (name.match(/^.*\.(js)$/)) {
++                if (name.match(/^.*\.(js|ts)$/)) {
+                     obj = require(abspath);
+ 
+                     if (!handlers[key]) {
