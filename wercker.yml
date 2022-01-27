@@ -5,6 +5,10 @@ build:
     - npm-install
 
     - script:
+      name: postinstall
+      code: npm run postinstall
+
+    - script:
       name: lint
       code: npm run lint
 
